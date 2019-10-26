@@ -1,0 +1,27 @@
+<mat-toolbar class="au-sidebar" [ngClass]="{collapsed: !opened}" color="primary">
+    <mat-toolbar-row class="header mat-elevation-z8" color="primary">
+        <mat-toolbar class="caption" [ngClass]="{collapsed: !opened}" color="primary">KRAKEN</mat-toolbar>
+
+        <mat-icon aria-hidden="false" aria-label="Example home icon" class="hamburger" [ngClass]="{collapsed: !opened}" (click)="toggle()">
+            menu
+        </mat-icon>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row class="content-box" color="primary">
+        <au-nav-button class="button" *ngFor="let command of commands"
+            [icon]="command.icon"
+            [text]="command.presentation"
+            [collapsed]="!opened">
+        </au-nav-button>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row class="content-box settings-content" color="primary">
+        <au-nav-button class="button settings"
+            type="system"
+            [icon]="settingsCommand.icon"
+            [text]="settingsCommand.presentation"
+            [collapsed]="!opened">
+        </au-nav-button>
+    </mat-toolbar-row>
+</mat-toolbar>
+

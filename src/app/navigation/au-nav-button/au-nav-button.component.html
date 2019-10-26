@@ -1,0 +1,23 @@
+<mat-toolbar class="au-nav-button" *ngIf="text || icon"
+    (click)="navigate()"
+    [ngClass]="{
+        hovered: hovered, 
+        collapsed: collapsed, 
+        success: type == 'success',
+        system: type == 'system'
+    }"
+
+    (mouseenter)="onMouseOver($event, true)" 
+    (mouseleave)="onMouseOver($event, false)">
+
+    <mat-icon aria-hidden="false" class="icon" 
+        [ngClass]="{
+            hovered: hovered, 
+            collapsed: collapsed}" *ngIf="icon">
+        {{icon}}
+    </mat-icon>
+
+    <mat-toolbar class="text-canvas" *ngIf="text && !collapsed" [ngClass]="{hovered: hovered}">
+        <a class="text">{{text}}</a>
+    </mat-toolbar>
+</mat-toolbar>

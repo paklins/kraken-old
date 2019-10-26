@@ -1,0 +1,23 @@
+@import '~@angular/material/theming';
+
+// always include only once per project
+@include mat-core();
+
+// Define a theme.
+$primary: mat-palette($mat-blue, 700, 500, 800);
+$accent:  mat-palette($mat-blue, A200, A100, A400);
+
+$theme: mat-dark-theme($primary, $accent);
+
+// Include all theme styles for the components.
+@include angular-material-theme($theme);
+
+/*
+Compomemts themes
+*/
+$nav-button-success: mat-palette($mat-indigo);
+$nav-button-success-theme: mat-dark-theme($nav-button-success, $nav-button-success);
+
+$nav-button-system: mat-palette($mat-purple, 700);
+$nav-button-system-accent: mat-palette($mat-purple, 800);
+$nav-button-system-theme: mat-dark-theme($nav-button-system, $nav-button-system-accent);

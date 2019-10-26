@@ -1,0 +1,22 @@
+.navbar{
+    height: 2.2em;
+    padding-bottom: .1em;
+    padding-left: 0;
+
+    .common-actions{
+        flex: 1;
+        padding: 0;
+        height: auto;
+    }
+
+    .search{
+        flex: 2;
+        height: auto;
+    }
+    .profile{
+        flex: 1;
+        height: auto;
+        padding: 0;
+    }
+
+}

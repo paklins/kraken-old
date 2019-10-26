@@ -1,0 +1,67 @@
+@import '../../themes/kraken.scss';
+
+$primaryPallete: map-get($map: $theme, $key: primary);
+$accentPallete: map-get($map: $theme, $key: accent);
+
+$success: map-get($nav-button-success-theme, $key: primary);
+$system: map-get($nav-button-system-theme, $key: primary);
+$system-hovered: map-get($nav-button-system-theme, $key: accent);
+
+.au-nav-button{
+    background: mat-color($primaryPallete);
+
+    &.success{
+        background: mat-color($success);
+    }
+
+    &.system{
+        background: mat-color($system);
+    }
+
+    padding: .2em .4em;
+    height: auto;
+
+    min-height: 2em;
+
+    user-select: none;
+
+    &.collapsed{
+        padding: 0;
+    }
+
+    &.hovered{
+        z-index: 9;
+        background: mat-color($primaryPallete, darker);
+
+        &.success{
+            background: mat-color($success, darker);
+        }
+
+        &.system{
+            background: mat-color($system-hovered);
+        }
+
+        @include mat-elevation(2);
+    }
+
+    .icon{
+        padding-left: .3em;
+        padding-right: .2em;
+
+        &.collapsed{
+            padding: 0 .25em;
+        }
+    }
+
+    .text-canvas{
+        background: transparent;
+        height: auto;
+
+        .text{
+            font-size: .8em;
+            padding-left: .3em;
+            margin: 0;
+            font-size: .75em;
+        }
+    }
+}
