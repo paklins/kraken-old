@@ -1,3 +1,10 @@
+::ng-deep ng-component {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    height: 100%;
+}
+
 .au-main-view{
     display: flex;
     flex-direction: row;

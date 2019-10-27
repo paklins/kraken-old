@@ -1,0 +1,43 @@
+<mat-toolbar class="au-upload">
+    <mat-horizontal-stepper class="stepper">
+        <mat-step [stepControl]="stepSelectedFiles">
+            <form [formGroup]="stepSelectedFiles">
+                <ng-template matStepLabel>Выбор файлов</ng-template>
+
+                <mat-toolbar-row class="command-panel" color="primary">
+                    1
+                </mat-toolbar-row>
+
+                <mat-toolbar-row class="content">
+                    <span class="drag-drop-canvas">
+                        2
+                    </span>
+
+                    <span class="list">
+                        3
+                    </span>
+                </mat-toolbar-row>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="stepUploadFiles">
+            <form [formGroup]="stepUploadFiles">
+                <ng-template matStepLabel>Настройки</ng-template>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="stepFinal">
+            <form [formGroup]="stepFinal">
+                <ng-template matStepLabel>Завершение</ng-template>
+            </form>
+        </mat-step>
+    </mat-horizontal-stepper>
+
+    <mat-toolbar class="stepper-controls">
+        <span class="spacer"></span>
+
+        <button mat-raised-button color="primary" color="warn">Отмена</button>
+        <button mat-raised-button color="primary" class="backward">Назад</button>
+        <button mat-raised-button color="primary" class="forward">Далее</button>
+    </mat-toolbar>
+</mat-toolbar>

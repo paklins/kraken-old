@@ -1,0 +1,62 @@
+@import '../../themes/kraken.scss';
+
+$primary: map-get($map: $theme, $key: primary);
+
+.au-upload{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    height: 100%;
+    background: transparent;
+
+    .stepper{
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        height: 100%;
+        width: 100%;
+    }
+
+    .command-panel{
+        background: mat-color($primary);
+        height: auto ;
+    }
+
+    .content{
+        background: transparent;
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+
+        .drag-drop-canvas{
+            flex: 1;
+        }
+
+        .list{
+            flex: 1;
+        }
+    }
+
+    .stepper-controls{
+        padding: .5em;
+        height: auto;
+
+        .spacer{
+            display: flex;
+            flex: 1;
+        }
+
+        button{
+            border-radius: 0;
+            margin-right: 1em;
+
+            &.backward{
+                margin-right: .3em;
+            }
+
+            &.forward{
+                margin-right: .2em;
+            }
+        }
+    }
+}

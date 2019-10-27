@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuMaterialModule } from './au-material.module';
 import { NavigationModule } from './navigation/navigation.module';
 import { WindowModule } from './window/window.module';
+import { UploadFilesModule } from './upload-files/upload-files.module';
+import { PagesModule } from './pages/pages.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,7 @@ import { WindowModule } from './window/window.module';
     BrowserAnimationsModule,
     AuMaterialModule,
     NavigationModule,
+    PagesModule,
     WindowModule],
   providers: [],
   bootstrap: [AppComponent]

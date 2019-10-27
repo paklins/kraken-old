@@ -13,7 +13,11 @@ import {
   MatDivider,
   MatButton,
   MatButtonModule,
-  MatRipple
+  MatRipple,
+  MatHorizontalStepper,
+  MatStep,
+  MatStepHeader,
+  MatStepLabel
 } from '@angular/material';
 
 let importedComponents = [
@@ -28,7 +32,11 @@ let importedComponents = [
   MatIcon,
   MatDivider,
   MatButton,
-  MatRipple
+  MatRipple,
+  MatHorizontalStepper,
+  MatStep,
+  MatStepHeader,
+  MatStepLabel
 ];
 
 @NgModule({
