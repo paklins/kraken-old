@@ -23,7 +23,7 @@
         <mat-step [stepControl]="stepSelectedFiles" 
             state="phone">
 
-            <form [formGroup]="stepSelectedFiles">
+            <form [formGroup]="stepSelectedFiles" class="tab-selected-files">
                 <ng-template matStepLabel>Выбор файлов</ng-template>
 
                 <mat-toolbar-row class="command-panel" color="primary">
@@ -32,7 +32,9 @@
 
                 <mat-toolbar-row class="content">
                     <span class="drag-drop-canvas">
-                        2
+                        <mat-icon>
+                            home
+                        </mat-icon>
                     </span>
 
                     <span class="list">
