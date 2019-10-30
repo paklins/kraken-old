@@ -31,15 +31,21 @@
                 </mat-toolbar-row>
 
                 <mat-toolbar-row class="content">
-                    <span class="drag-drop-canvas">
-                        <mat-icon>
-                            home
-                        </mat-icon>
-                    </span>
+                    <mat-toolbar class="drag-drop-canvas">
+                        <mat-toolbar-row class="attach-icon">
+                            <mat-icon>
+                                attach_file
+                            </mat-icon>
+                        </mat-toolbar-row>
 
-                    <span class="list">
+                        <mat-toolbar-row class="attach-hint">
+                            <p>Перетащите сюда файлы <br/>для загрузки</p>
+                        </mat-toolbar-row>
+                    </mat-toolbar>
+
+                    <mat-toolbar class="list">
                         3
-                    </span>
+                    </mat-toolbar>
                 </mat-toolbar-row>
             </form>
         </mat-step>

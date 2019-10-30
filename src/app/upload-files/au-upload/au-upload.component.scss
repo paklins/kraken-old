@@ -57,19 +57,30 @@ $primary: map-get($map: $theme, $key: primary);
             border-style: dashed;
             height: 100%;
 
-            mat-icon{
-                display: flex;
-                width: 100%;
-                height: 100%;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                font-size: 8em;
+            .attach-icon{
+                height: auto;
+                flex: 1;
+                align-items: flex-end;
+
+                mat-icon{
+                    display: flex;
+                    width: 100%;
+                    height: auto;
+                    justify-content: center;
+                    font-size: 8em;
+                }
+            }
+
+            .attach-hint{
+                height: auto;
+                flex: 1;
+                align-items: flex-start;
+                text-align: center;
             }
         }
 
         .list{
-            flex: 3;
+            flex: 4;
         }
     }
 
