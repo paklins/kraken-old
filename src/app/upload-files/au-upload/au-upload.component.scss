@@ -8,9 +8,10 @@ $primary: map-get($map: $theme, $key: primary);
     flex-direction: column;
     height: 100%;
     background: transparent;
+    user-select: none;
 
     ::ng-deep .mat-step-header{
-        padding-bottom: .1em;
+        padding-bottom: .5em;
     }
 
     ::ng-deep .mat-horizontal-content-container{
@@ -23,6 +24,14 @@ $primary: map-get($map: $theme, $key: primary);
         display: flex;
         flex-direction: column;
         flex: 1;
+    }
+
+    ::ng-deep .mat-horizontal-stepper-header{
+        pointer-events: none !important;
+    }
+
+    ::ng-deep .mat-step-icon{
+        border-radius: 0;
     }
 
     .tab-selected-files{
@@ -51,11 +60,17 @@ $primary: map-get($map: $theme, $key: primary);
         flex-direction: row;
         flex: 1;
         padding: 0;
+        margin-top: 1em;
 
         .drag-drop-canvas{
             flex: 1;
             border-style: dashed;
             height: 100%;
+
+            &.file-drag-and-drop{
+                background: chartreuse;
+                cursor: not-allowed;
+            }
 
             .attach-icon{
                 height: auto;
@@ -75,12 +90,65 @@ $primary: map-get($map: $theme, $key: primary);
                 height: auto;
                 flex: 1;
                 align-items: flex-start;
-                text-align: center;
+                justify-content: center;
+
+                p{
+                    text-align: center;
+                }
             }
         }
 
         .list{
             flex: 4;
+            height: 100%;
+            margin-left: 1em;
+            padding: 0;
+            background: transparent;
+
+            .scrollbar-files{
+                .ps-content{
+                    .ps__rail-y{
+                        top: 4em !important;
+                    }
+                }
+            }
+
+            .table-files{
+                // display: flex;
+                // height: 100%;
+                // flex-direction: column;
+                width: 100%;
+                // overflow: auto;
+                
+
+                // thead{
+                //     position: absolute;
+                //     display: flex;
+                //     width: 100%;
+                // }
+
+                // .header-column{
+                //     display: flex;
+                //     flex: 1;
+                //     th{
+                //         display: flex;
+                //         flex: 1;
+                //         align-items: center;
+                //     }
+                // }
+
+                ::ng-deep .ps__rail-y{
+                    &:hover{
+                        background: transparent;
+                    }
+                }
+
+                .table-row{
+                    td{
+                        white-space: normal;
+                    }
+                }
+            }
         }
     }
 
