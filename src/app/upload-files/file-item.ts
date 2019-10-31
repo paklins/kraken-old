@@ -1,10 +1,8 @@
 export class FileItem {
 
-    constructor(file: File){
-        this._name = file.name;
-        this._size = file.size;
-        this._type = file.type;
-
+    constructor(file: any){
+        this._name = file.fullPath;
+        this._size = 0;
         this._binary = file;
     }
 
@@ -18,13 +16,17 @@ export class FileItem {
         return this._size;
     }
 
-    private _type : string;
-    public get type() : string {
-        return this._type;
-    }
-
     private _binary : File;
     public get binary() : File {
         return this._binary;
     }
+        
+    private _checked : boolean;
+    public get checked() : boolean {
+        return this._checked;
+    }
+    public set checked(v : boolean) {
+        this._checked = v;
+    }
+    
 }

@@ -16,10 +16,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   styleUrls: ['./au-upload.component.scss'],
   providers: [
     {
-      provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
+      provide: STEPPER_GLOBAL_OPTIONS, 
+      useValue: {displayDefaultIndicatorType: false}
     },
     {
-      provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+      provide: PERFECT_SCROLLBAR_CONFIG, 
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     }
   ]
 })
@@ -34,7 +36,8 @@ export class AuUploadComponent implements OnInit {
   public fileOver: boolean = false;
 
   public files: FileItem[] = [];
-  public displayedColumns: string[] = ['name', 'size'];
+  public displayedColumns: string[] = 
+    ['icon', 'name', 'size', 'type'];
 
   @ViewChild(MatTable, {static: false}) tableFiles: 
   MatTable<any>;
@@ -54,16 +57,18 @@ export class AuUploadComponent implements OnInit {
     this.stepFinal = this._formBuilder.group({});
   }
 
-  public onFileDrop(draggedFiles: FileList){
+  public onFileDrop(fileEntries: any[]){
     this.fileOver = false;
 
-    for (let index = 0; index < draggedFiles.length; index++) {
-      const file: File = draggedFiles[index];
-
-      this.files.push(new FileItem(file));
+    if(fileEntries != undefined){
+      for (let index = 0; index < fileEntries.length; index++) {
+        const fileEntry = fileEntries[index];
+        
+        this.files.push(new FileItem(fileEntry));
+      }
     }
 
-    if(draggedFiles.length > 0){
+    if(fileEntries.length){
       this.tableFiles.renderRows();
     }
   }

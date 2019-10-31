@@ -1,4 +1,6 @@
 import { Directive, Output, EventEmitter, HostListener } from '@angular/core';
+import { FileItem } from './file-item';
+import { resolve } from 'path';
 
 @Directive({
   selector: '[auDragDropFile]'
@@ -31,17 +33,40 @@ export class DragDropFileDirective {
   }
 
   @HostListener('drop', ['$event'])
-  public onDropFile(event: any): void{
+  public async onDropFile(event: any){
     event.preventDefault();
     event.stopPropagation();
 
-    let files: any[] = event.dataTransfer.files;
+    let items: DataTransferItem[] = event.dataTransfer.items;
+    let files: any[] = [];
 
-    if(files.length > 0){
-      this.fileDropped.emit(files);
+    for (let index = 0; index < items.length; index++) {
+      const item: any = items[index].webkitGetAsEntry();
+
+      this.excludeFiles(item, files);
     }
+
+    this.fileDropped.emit(files);
   }
 
   constructor() { }
+  
+  private excludeFiles(item: any, files: any[]): void{
+    if(item.isFile){
+      files.push(item)
+    } else if(item.isDirectory){
+      let reader = item.createReader();
+
+      reader.readEntries((entries: any[]) => {
+        for (let index = 0; index < entries.length; index++) {
+          const entry = entries[index];
+
+          this.excludeFiles(entry, files);          
+        }
+
+        resolve();
+      });
+    }
+  }
 
 }

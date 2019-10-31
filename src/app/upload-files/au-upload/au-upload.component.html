@@ -45,9 +45,23 @@
                             <table mat-table [dataSource]="files" 
                                 class="table-files">
 
+                                <ng-container matColumnDef="icon">
+                                    <th mat-header-cell *matHeaderCellDef style="width: 3.3em;"></th>
+                                    <td mat-cell *matCellDef="let row"> 
+                                        <mat-icon fxLayout="column" fxLayoutAlign="center center">
+                                            {{row.name | fileExtension | extensionIcon}}
+                                        </mat-icon>
+                                    </td>
+                                </ng-container>
+
                                 <ng-container matColumnDef="name">
                                     <th mat-header-cell *matHeaderCellDef>Файл</th>
                                     <td mat-cell *matCellDef="let row"> {{row.name}}</td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="type">
+                                    <th mat-header-cell *matHeaderCellDef>Тип файла</th>
+                                    <td mat-cell *matCellDef="let row"> {{row.name | fileExtension | extensionDescription}}</td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="size">

@@ -8,7 +8,8 @@ import { UploadStepperIntl } from './upload-stepper-intl';
 import { DragDropFileDirective } from './drag-drop-file.directive';
 import { PipesModule } from '../pipes/pipes.module';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FilesystemModule } from '../filesystem/filesystem.module';
 
 @NgModule({
   declarations: [AuUploadComponent, DragDropFileDirective],
@@ -18,7 +19,9 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     ReactiveFormsModule,
     AuMaterialModule,
     PipesModule,
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
+    FlexLayoutModule,
+    FilesystemModule
   ],
   exports: [AuUploadComponent, DragDropFileDirective],
   providers: [
