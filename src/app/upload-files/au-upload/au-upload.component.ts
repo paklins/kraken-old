@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { PerfectScrollbarConfigInterface, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -34,6 +34,7 @@ export class AuUploadComponent implements OnInit {
   public nextButtonText: string = "Далее";
   public directionStep: string = "forward";
   public fileOver: boolean = false;
+  public text: string = "1";
 
   public files: FileItem[] = [];
   public displayedColumns: string[] = 
@@ -44,7 +45,7 @@ export class AuUploadComponent implements OnInit {
 
   public config: PerfectScrollbarConfigInterface = {};
 
-  constructor(private _formBuilder: FormBuilder) { }
+  constructor(private _formBuilder: FormBuilder, private changeDetection: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.stepSelectedFiles = this._formBuilder.group(
@@ -57,20 +58,16 @@ export class AuUploadComponent implements OnInit {
     this.stepFinal = this._formBuilder.group({});
   }
 
-  public onFileDrop(fileEntries: any[]){
-    this.fileOver = false;
+  public onFileDrop(fileEntry: any){
+    if(fileEntry != undefined){
+      this.files.push(
+        new FileItem(fileEntry.file, fileEntry.name));
 
-    if(fileEntries != undefined){
-      for (let index = 0; index < fileEntries.length; index++) {
-        const fileEntry = fileEntries[index];
-        
-        this.files.push(new FileItem(fileEntry));
-      }
-    }
-
-    if(fileEntries.length){
       this.tableFiles.renderRows();
+      this.changeDetection.detectChanges();
     }
+
+    this.fileOver = false;
   }
 
   public selectionChange(stepper: MatStepper){

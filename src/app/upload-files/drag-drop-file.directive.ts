@@ -1,6 +1,4 @@
 import { Directive, Output, EventEmitter, HostListener } from '@angular/core';
-import { FileItem } from './file-item';
-import { resolve } from 'path';
 
 @Directive({
   selector: '[auDragDropFile]'
@@ -14,7 +12,7 @@ export class DragDropFileDirective {
   fileLeave: EventEmitter<any> = new EventEmitter<any>();
 
   @Output()
-  fileDropped: EventEmitter<any> = new EventEmitter<any>();
+  fileDropped: EventEmitter<any> = new EventEmitter<any>(true);
 
   @HostListener('dragover', ['$event'])
   public onDragOver(event: Event): void{
@@ -46,14 +44,18 @@ export class DragDropFileDirective {
       this.excludeFiles(item, files);
     }
 
-    this.fileDropped.emit(files);
+    this.fileDropped.emit(undefined);
   }
 
   constructor() { }
   
   private excludeFiles(item: any, files: any[]): void{
     if(item.isFile){
-      files.push(item)
+      
+      item.file(file => { 
+        this.fileDropped.emit({"file": file, "name": item.fullPath }); 
+      });
+
     } else if(item.isDirectory){
       let reader = item.createReader();
 
@@ -61,10 +63,8 @@ export class DragDropFileDirective {
         for (let index = 0; index < entries.length; index++) {
           const entry = entries[index];
 
-          this.excludeFiles(entry, files);          
+          this.excludeFiles(entry, files);
         }
-
-        resolve();
       });
     }
   }

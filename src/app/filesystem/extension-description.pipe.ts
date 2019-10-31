@@ -14,7 +14,7 @@ export class ExtensionDescriptionPipe implements PipeTransform {
                 break;
 
             default:
-                result = `Файл с расширением $extension`;
+                result = "Файл с расширением " + value;
                 break;
         }
 

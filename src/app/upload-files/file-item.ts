@@ -1,8 +1,8 @@
 export class FileItem {
 
-    constructor(file: any){
-        this._name = file.fullPath;
-        this._size = 0;
+    constructor(file: File, fullName: string){
+        this._name = fullName;
+        this._size = file.size;
         this._binary = file;
     }
 

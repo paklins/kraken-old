@@ -33,6 +33,10 @@ $primary: map-get($map: $theme, $key: primary);
     ::ng-deep .mat-step-icon{
         border-radius: 0;
     }
+    
+    ::ng-deep .ps__rail-y{
+        background-color: transparent !important;
+    }
 
     .tab-selected-files{
         display: flex;
@@ -105,37 +109,12 @@ $primary: map-get($map: $theme, $key: primary);
             padding: 0;
             background: transparent;
 
-            .scrollbar-files{
-                .ps-content{
-                    .ps__rail-y{
-                        top: 4em !important;
-                    }
-                }
+            .scroll-container{
+                padding-right: 1em;
             }
 
             .table-files{
-                // display: flex;
-                // height: 100%;
-                // flex-direction: column;
                 width: 100%;
-                // overflow: auto;
-                
-
-                // thead{
-                //     position: absolute;
-                //     display: flex;
-                //     width: 100%;
-                // }
-
-                // .header-column{
-                //     display: flex;
-                //     flex: 1;
-                //     th{
-                //         display: flex;
-                //         flex: 1;
-                //         align-items: center;
-                //     }
-                // }
 
                 ::ng-deep .ps__rail-y{
                     &:hover{
