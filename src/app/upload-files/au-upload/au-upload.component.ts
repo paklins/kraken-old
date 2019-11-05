@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { PerfectScrollbarConfigInterface, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -45,7 +45,7 @@ export class AuUploadComponent implements OnInit {
 
   public config: PerfectScrollbarConfigInterface = {};
 
-  constructor(private _formBuilder: FormBuilder, private changeDetection: ChangeDetectorRef) { }
+  constructor(private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.stepSelectedFiles = this._formBuilder.group(
@@ -58,13 +58,18 @@ export class AuUploadComponent implements OnInit {
     this.stepFinal = this._formBuilder.group({});
   }
 
-  public onFileDrop(fileEntry: any){
-    if(fileEntry != undefined){
-      this.files.push(
-        new FileItem(fileEntry.file, fileEntry.name));
+  public onFileDrop(files: any[]){
+    if(files.length){
+      for (let index = 0; index < files.length; index++) {
+        const fileInfo = files[index];
+        
+        let item: FileItem = new FileItem(
+          fileInfo.file, fileInfo.name);
+
+        this.files.push(item);
+      }
 
       this.tableFiles.renderRows();
-      this.changeDetection.detectChanges();
     }
 
     this.fileOver = false;

@@ -36,37 +36,53 @@ export class DragDropFileDirective {
     event.stopPropagation();
 
     let items: DataTransferItem[] = event.dataTransfer.items;
-    let files: any[] = [];
 
-    for (let index = 0; index < items.length; index++) {
-      const item: any = items[index].webkitGetAsEntry();
+    let entries = this.getEntries(items);
+    let directoryInfo: any[] = [];
+    await this.trackEntries(entries, directoryInfo);
 
-      this.excludeFiles(item, files);
-    }
+    let files = await Promise.all(directoryInfo);
 
-    this.fileDropped.emit(undefined);
+    this.fileDropped.emit(files);
   }
 
   constructor() { }
-  
-  private excludeFiles(item: any, files: any[]): void{
-    if(item.isFile){
+
+  private getEntries(items: any[]): any[]{
+    let result: any[] = [];
+
+    for (let index = 0; index < items.length; index++) {
+      const item = items[index];
       
-      item.file(file => { 
-        this.fileDropped.emit({"file": file, "name": item.fullPath }); 
-      });
-
-    } else if(item.isDirectory){
-      let reader = item.createReader();
-
-      reader.readEntries((entries: any[]) => {
-        for (let index = 0; index < entries.length; index++) {
-          const entry = entries[index];
-
-          this.excludeFiles(entry, files);
-        }
-      });
+      result.push(item.webkitGetAsEntry());
     }
+
+    return result;
   }
 
+  private async getFileInfo(entry: any): Promise<any>{
+    return new Promise((resolve) => {
+      entry.file(file => resolve({"file": file, "name": entry.fullPath }));
+    });
+  }
+
+  private async trackEntries(entries: any[], list?: any[]): Promise<any>{
+    return new Promise((resolve) => {
+      entries.forEach(async entry => {
+        if(entry.isFile){
+          list.push(this.getFileInfo(entry));
+
+        } else if(entry.isDirectory){
+
+          let reader = entry.createReader();
+          let entries: any[] = await new Promise(
+            (resolve) => { reader.readEntries(entries => { resolve(entries); } )});
+
+            this.trackEntries(entries, list);
+        };
+
+        resolve();
+      })
+    });
+  }
 }
