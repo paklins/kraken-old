@@ -5,6 +5,7 @@ import { PerfectScrollbarConfigInterface, PERFECT_SCROLLBAR_CONFIG } from 'ngx-p
 import { MatStepper } from '@angular/material/stepper'
 import { MatButton, MatTable } from '@angular/material';
 import { FileItem } from '../file-item';
+import { SelectionModel } from '@angular/cdk/collections';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   scrollXMarginOffset: 20
@@ -38,12 +39,13 @@ export class AuUploadComponent implements OnInit {
 
   public files: FileItem[] = [];
   public displayedColumns: string[] = 
-    ['icon', 'name', 'size', 'type'];
+    ['checked', 'icon', 'name', 'size', 'type'];
 
   @ViewChild(MatTable, {static: false}) tableFiles: 
   MatTable<any>;
 
   public config: PerfectScrollbarConfigInterface = {};
+  public selection: SelectionModel<FileItem> = new SelectionModel<FileItem>(true, []);
 
   constructor(private _formBuilder: FormBuilder) { }
 
@@ -56,6 +58,27 @@ export class AuUploadComponent implements OnInit {
 
     this.stepUploadFiles = this._formBuilder.group({});
     this.stepFinal = this._formBuilder.group({});
+  }
+
+  public isAllSelected(): boolean{
+    const selectedCount = this.selection.selected.length;
+    const rowsCount = this.files.length;
+
+    return selectedCount == rowsCount;
+  }
+
+  public matsterToggle(): void{
+    this.isAllSelected() ?
+      this.selection.clear()
+      : this.files.forEach(file => this.selection.select(file));
+  }
+
+  public checkboxLabel(row?: FileItem): string{
+    if(!row){
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row`;
   }
 
   public onFileDrop(files: any[]){
