@@ -8,6 +8,7 @@ import { AuMaterialModule } from './au-material.module';
 import { NavigationModule } from './navigation/navigation.module';
 import { WindowModule } from './window/window.module';
 import { PagesModule } from './pages/pages.module';
+import { ControlsModule } from './controls/controls.module';
 
 @NgModule({
   declarations: [
@@ -20,8 +21,11 @@ import { PagesModule } from './pages/pages.module';
     AuMaterialModule,
     NavigationModule,
     PagesModule,
+    ControlsModule,
     WindowModule],
-  providers: [],
+  providers: [
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

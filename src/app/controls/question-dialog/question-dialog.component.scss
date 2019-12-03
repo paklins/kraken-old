@@ -1,0 +1,25 @@
+.layout{
+    height: auto;
+
+    .text{
+        height: auto;
+        white-space: normal;
+        font-size: .8em;
+        line-height: 1.3em;
+        text-align: justify;
+        text-justify: inter-word;
+    }
+
+    .buttons{
+        justify-content: center;
+
+        button{
+            border-radius: 0;
+            margin-right: .2em;
+            
+            &:last-child{
+                margin-right: 0;
+            }
+        }
+    }
+}

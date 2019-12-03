@@ -1,0 +1,12 @@
+<mat-toolbar 
+    class="window">
+    <mat-toolbar-row class="header">
+        <au-window-header [text]="text" (close)="close.emit($event)">
+        </au-window-header>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row class="content">
+        <ng-content></ng-content>
+    </mat-toolbar-row>
+
+</mat-toolbar>

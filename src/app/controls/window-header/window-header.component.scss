@@ -1,0 +1,18 @@
+.header{
+    height: auto;
+    padding: .2em .3em .2em .9em;
+
+    .caption{
+        padding: 0;
+        height: auto;
+        flex: 1;
+
+        font: 500 .7em/2em Roboto, "Helvetica Neue", sans-serif;
+    }
+
+    .buttons{
+        padding: 0;
+        height: auto;
+        flex: 0;
+    }
+}

@@ -1,0 +1,15 @@
+.au-dashboard-command-panel{
+    height: auto;
+    height: 1.8em;
+    padding: .2em 0;
+    flex-direction: row-reverse;
+
+    button{
+        border-radius: 0;
+        width: 2.4em!important;
+        background: transparent;
+        padding: 0;
+        min-width: unset!important;
+        min-height: unset!important;
+    }
+}

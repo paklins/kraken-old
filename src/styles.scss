@@ -10,4 +10,19 @@ html, body {
 body { 
     margin: 0; 
     font-family: Roboto, "Helvetica Neue", sans-serif;
+    
+}
+
+.au-dashboard-config-backdrop{
+    background-color: rgba(0, 0, 0, 50%);
+    backdrop-filter: blur(.1em);
+}
+
+.au-dashboard-config-dialog{
+    max-width: 80%;
+
+    .mat-dialog-container{
+        border-radius: 0;
+        padding: 0;
+    }
 }

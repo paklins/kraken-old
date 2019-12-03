@@ -1,0 +1,15 @@
+<mat-toolbar class="header">
+    <mat-toolbar 
+        cdkDrag
+        cdkDragRootElement=".cdk-overlay-pane" 
+        cdkDragHandle
+        class="caption">
+        {{text}}
+    </mat-toolbar>
+    
+    <mat-toolbar class="buttons">
+        <button mat-icon-button aria-label="Close window" (click)="close.emit(data)">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-toolbar>
+</mat-toolbar>

@@ -1,0 +1,20 @@
+.window{
+    height: auto;
+    padding: 0;
+    max-height: 47em;
+    min-width: 30em;
+    user-select: none;
+
+    .header{
+        height: auto;
+        padding: 0;
+
+        au-window-header{
+            width: 100%;
+        }
+    }
+
+    .content{
+        height: auto;
+    }
+}

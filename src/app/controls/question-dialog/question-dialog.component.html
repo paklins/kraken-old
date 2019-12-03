@@ -1,0 +1,14 @@
+<au-window [text]="data.caption" (close)="onClose()">
+    <mat-toolbar class="layout">
+        <mat-toolbar-row class="text">
+            <p>{{data.text}}</p>
+        </mat-toolbar-row>
+
+        <mat-toolbar-row class="buttons">
+            <button mat-raised-button *ngIf="enabledOK" (click)="onClose(answerOK)">Хорошо</button>
+            <button mat-raised-button *ngIf="enabledYes" (click)="onClose(answerYes)">Да</button>
+            <button mat-raised-button *ngIf="enabledNo" (click)="onClose(answerNo)">Нет</button>
+            <button mat-raised-button *ngIf="enabledCancel" (click)="onClose(answerCancel)">Отмена</button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+</au-window>
