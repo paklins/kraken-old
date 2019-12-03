@@ -1,0 +1,14 @@
+$margin-right: .2em;
+
+.grid{
+    height: auto;
+
+    .dashboard-widget{
+        flex: 1;
+        margin-right: $margin-right;
+
+        &:last-child{
+            margin-right: 0;
+        }
+    }
+}

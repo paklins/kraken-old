@@ -1,0 +1,22 @@
+@import '../../themes/kraken.scss';
+
+$primaryPallete: map-get($map: $theme, $key: primary);
+$accentPallete: map-get($map: $theme, $key: accent);
+
+.widget{
+    user-select: none;
+    border: dashed 1px white;
+    min-height: 30%;
+
+    .header{
+        background: mat-color($primaryPallete);
+        font-size: .8em;
+        line-height: .9em;
+        height: auto;
+        padding: .3em 0;
+    }
+
+    .body{
+
+    }
+}

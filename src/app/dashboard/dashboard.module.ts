@@ -28,7 +28,9 @@ import { DashboardGridComponent } from './dashboard-grid/dashboard-grid.componen
     WidgetWizardComponent,
     DashboardGridComponent
   ],
-  entryComponents: [WidgetWizardComponent],
+  entryComponents: [
+    WidgetWizardComponent, 
+    WidgetComponent],
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
     {provide: OverlayContainer, useClass: FullscreenOverlayContainer}
