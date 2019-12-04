@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ViewContainerRef, ComponentFactoryResolver, Renderer2, ViewEncapsulation, ComponentFactory } from '@angular/core';
 import { DashboardWidget } from '../dashboard-widget';
 import { WidgetComponent } from '../widget/widget.component';
+import { MatToolbar, MatToolbarRow } from '@angular/material';
 
 @Component({
   selector: 'au-dashboard-grid',
@@ -20,26 +21,6 @@ export class DashboardGridComponent implements OnInit {
 
   @Input()
   public widgets: DashboardWidget[] = [];
-
-  private calculate(): void{
-    this.widgets.forEach(widget => {
-      const result = this.calculateWidget(
-        this.maxCols,
-        this.maxRows,
-        widget);
-
-      this.maxCols = result.cols;
-      this.maxRows = result.rows;
-    });
-  }
-
-  private calculateWidget(maxCols: number, maxRows: number, widget: DashboardWidget): 
-  { cols: number, rows: number }{
-    let cols: number = maxCols;
-    let rows: number = maxRows;
-
-    return { cols: cols, rows: rows };
-  }
 
   private fillGridCols(row: number[], index: number, span: number, 
       max: number, filledCells: number, widgetIndex: number){
@@ -66,20 +47,20 @@ export class DashboardGridComponent implements OnInit {
     return result;
   }
 
-  private rowFilled(grid: number[][], row: number, maxCols: number): boolean{
-    let result: boolean = true;
+  private availableColumn(grid: number[][], row: number, maxCols: number): number{
+    let result: number = -1;
 
     if(undefined == grid[row]){
       grid[row] = [];
 
-      return false;
+      return 0;
     }
 
     for (let index = 0; index < maxCols; index++) {
       const element = grid[row][index];
       
       if(undefined == element){
-        result = false;
+        result = index;
         break;
       }
     }
@@ -87,62 +68,125 @@ export class DashboardGridComponent implements OnInit {
     return result;
   }
 
-  private loadWidgets(factory: ComponentFactory<WidgetComponent>): void{
+  private generateGrid(widgets: DashboardWidget[], 
+    maxRows: number, maxCols: number): number[][]{
+
     this.widgetContainer.clear();
 
     let widgetGrid: number[][] = [];
 
     let indexRow: number = 0;
-    let indexCol: number = 0;
+    let indexCol: number = -1;
     let widgetIndex: number = 0;
 
-    const maxCells: number = this.maxCols * this.maxCols;
+    const maxCells: number = maxCols * maxCols;
     let filledCells: number = 0;
 
-    this.widgets.forEach((widget: DashboardWidget) => {
-      const componentRef = this.widgetContainer.createComponent(factory);
-      const elementRef = componentRef.location.nativeElement;
-
+    widgets.forEach((widget: DashboardWidget) => {
       if(filledCells >= maxCells){
         return;
       }
 
-      while(this.rowFilled(widgetGrid, indexRow, this.maxCols) 
-        && indexRow < this.maxRows){
+      indexCol = this.availableColumn(
+        widgetGrid, indexRow, maxCols);
 
+      while(indexCol < 0 && indexRow < maxRows){
         indexRow++;
+
+        indexCol = this.availableColumn(
+          widgetGrid, indexRow, maxCols);
       }
 
       let rowsToFill: number[] = this.rowsToFill(
-        indexRow, widget.rowSpan, this.maxRows);
+        indexRow, widget.rowSpan, maxRows);
 
       rowsToFill.forEach((row: number) => {
-        filledCells = this.fillGridCols(widgetGrid[row], indexCol, widget.colSpan, 
-          this.maxCols, filledCells, widgetIndex);
-      });
+          if(undefined == widgetGrid[row]){
+            widgetGrid[row] = [];
+          }
 
-      this.rederer.addClass(elementRef, 'dashboard-widget');
+      filledCells = this.fillGridCols(widgetGrid[row], indexCol, widget.colSpan, 
+        this.maxCols, filledCells, widgetIndex);
+      });
 
       widgetIndex++;
     });
 
-    console.log(widgetGrid);
+    return widgetGrid;
   }
 
-  private getFactory(): ComponentFactory<WidgetComponent>{
-    const factory: ComponentFactory<WidgetComponent> = 
-      this.resolver.resolveComponentFactory(WidgetComponent);
+  // private getFactory(Component: any): ComponentFactory<any>{
+  //   const factory: ComponentFactory<any> = 
+  //     this.resolver.resolveComponentFactory(Component);
 
-    return factory;
+  //   return factory;
+  // }
+
+  private calculateRowItemCount(widgetGrid: number[][], 
+      rowCount: number, rowIndex: number): number{
+
+    let result: number = 1;
+    let colIndex: number = 0;
+
+    const row: number[] = widgetGrid[rowIndex];
+    const colCount: number = row.length;
+
+    while(colIndex < colCount){
+      const currentColumn: number = row[colIndex];
+      const nextRowIndex: number = rowIndex + 1;
+
+      if(nextRowIndex >= rowCount){
+        break;
+      }
+
+      const nextRow: number[] = widgetGrid[nextRowIndex];
+      const nextRowColumn: number = nextRow[colIndex];
+
+      if(currentColumn == nextRowColumn){
+        result = 0;
+        break;
+      }
+
+      colIndex++;
+    }
+
+    return result;
+  }
+
+  private renderWidgetGrid(): void{
+    let factRows: number = 0;
+
+    const grid: number[][] = this.generateGrid(
+      this.widgets,
+      this.maxRows,
+      this.maxCols);
+
+    let rowsCount: number = grid.length;
+    let nextIndex: number = 0;
+
+    for (let index = 0; index < rowsCount; index++) {
+      nextIndex = (index + 1);
+
+      factRows += this.calculateRowItemCount(
+        grid, rowsCount, index);
+    }
+
+    console.log(factRows);
   }
 
   constructor(private resolver: ComponentFactoryResolver,
     private rederer: Renderer2) { }
 
   ngOnInit() {
-    this.factory = this.getFactory();
-    
-    this.loadWidgets(this.factory);
+    // this.factory = this.getFactory(WidgetComponent);
+    // const rowFactory = this.getFactory(MatToolbarRow);
+
+    // factory: ComponentFactory<WidgetComponent>
+    // const componentRef = this.widgetContainer.createComponent(factory);
+    // const elementRef = componentRef.location.nativeElement;
+    // this.rederer.addClass(elementRef, 'dashboard-widget');
+
+    this.renderWidgetGrid();
   }
 
 }
