@@ -3,4 +3,6 @@ export class DashboardWidget {
     public column: number = 1;
     public colSpan: number = 1;
     public rowSpan: number = 1;
+
+    public title: string = "";
 }
