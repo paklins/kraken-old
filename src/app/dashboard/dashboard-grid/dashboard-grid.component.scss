@@ -1,14 +1,28 @@
-$margin-right: .2em;
+$margin: .4em;
 
 .grid{
     height: auto;
 
-    .dashboard-widget{
-        flex: 1;
-        margin-right: $margin-right;
+    .row{
+        margin-bottom: $margin;
+        padding: 0;
+
+        .cell{
+            height: auto;
+            padding: 0;
+            margin-right: $margin;
+
+            &:last-child{
+                margin-right: 0;
+            }
+
+            .widget{
+                height: 100%;
+            }
+        }
 
         &:last-child{
-            margin-right: 0;
+            margin-bottom: 0;
         }
     }
 }

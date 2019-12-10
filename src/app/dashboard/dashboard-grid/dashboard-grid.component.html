@@ -1,8 +1,42 @@
-<mat-toolbar fxFlex fxLayoutAlign="baseline" class="grid">
+<mat-toolbar
+    class="grid"
+    fxFlex
+    fxLayout="column" 
+    fxLayoutAlign="baseline" >
     <!-- <au-widget class="widget" fxFlex>
     </au-widget> -->
 
     <ng-template #widgetContainer>
     </ng-template>
+
+    <mat-toolbar-row 
+        class="row" 
+        fxFlex
+        fxLayoutAlign="stretch"
+        fxLayout="row" 
+        *ngFor="let row of renderGrid.rows">
+
+        <mat-toolbar
+            class="cell" 
+            fxFlex 
+            fxLayout="row"
+            *ngFor="let cell of row.cells">
+            <au-widget 
+                class="widget" 
+                fxFlex 
+                fxLayout="column"
+                *ngIf="cell.childs.length == 0">
+            </au-widget>
+
+            <mat-toolbar-row *ngIf="cell.childs.length">
+                <au-widget 
+                    class="widget" 
+                    fxFlex 
+                    fxLayout="column"
+                    *ngFor="let child of cell.childs">
+                </au-widget>
+            </mat-toolbar-row>
+        </mat-toolbar>
+    </mat-toolbar-row>
 
 </mat-toolbar>

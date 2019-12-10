@@ -8,6 +8,7 @@ $system: map-get($nav-button-system-theme, $key: primary);
 $system-hovered: map-get($nav-button-system-theme, $key: accent);
 
 .au-nav-button{
+    @include mat-elevation-transition;
     background: mat-color($primaryPallete);
 
     &.success{
@@ -42,6 +43,10 @@ $system-hovered: map-get($nav-button-system-theme, $key: accent);
         }
 
         @include mat-elevation(2);
+    }
+
+    &.always-elevation{
+        @include mat-elevation(6);
     }
 
     .icon{

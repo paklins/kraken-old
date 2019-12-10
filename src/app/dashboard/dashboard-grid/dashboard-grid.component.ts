@@ -2,6 +2,8 @@ import { Component, OnInit, Input, ViewChild, ViewContainerRef, ComponentFactory
 import { DashboardWidget } from '../dashboard-widget';
 import { WidgetComponent } from '../widget/widget.component';
 import { MatToolbar, MatToolbarRow } from '@angular/material';
+import { DashboardRenderGrid } from './dashboard-render-grid';
+import { DashboardRenderGridRow } from './dashboard-render-grid-row';
 
 @Component({
   selector: 'au-dashboard-grid',
@@ -15,6 +17,8 @@ export class DashboardGridComponent implements OnInit {
 
   public maxCols: number = 4;
   public maxRows: number = 4;
+
+  public renderGrid: DashboardRenderGrid = new DashboardRenderGrid();
 
   @ViewChild('widgetContainer', {static: true, read: ViewContainerRef})
   public widgetContainer: ViewContainerRef;
@@ -153,8 +157,9 @@ export class DashboardGridComponent implements OnInit {
     return result;
   }
 
-  private renderWidgetGrid(): void{
+  private renderWidgetGrid(): DashboardRenderGrid{
     let factRows: number = 0;
+    let renderGrid: DashboardRenderGrid = new DashboardRenderGrid();
 
     const grid: number[][] = this.generateGrid(
       this.widgets,
@@ -163,15 +168,24 @@ export class DashboardGridComponent implements OnInit {
 
     let rowsCount: number = grid.length;
     let nextIndex: number = 0;
+    let renderGridRow: DashboardRenderGridRow;
 
-    for (let index = 0; index < rowsCount; index++) {
-      nextIndex = (index + 1);
+    for (let rowIndex = 0; rowIndex < rowsCount; rowIndex++) {
+        const nextIndex: number = rowIndex + 1;
+        const row: number[] = grid[rowIndex];
+        //if(nextIndex >= rowsCount){
+        renderGridRow = renderGrid.addRow();
+        const cellCount: number = grid[rowIndex].length;
 
-      factRows += this.calculateRowItemCount(
-        grid, rowsCount, index);
+        for (let cellIndex: number = 0; cellIndex < cellCount; cellIndex++) {
+          const cell: number = row[cellIndex];
+          
+          renderGridRow.addCell(cell, 1);
+        }
+        //}
     }
 
-    console.log(factRows);
+    return renderGrid;
   }
 
   constructor(private resolver: ComponentFactoryResolver,
@@ -186,7 +200,7 @@ export class DashboardGridComponent implements OnInit {
     // const elementRef = componentRef.location.nativeElement;
     // this.rederer.addClass(elementRef, 'dashboard-widget');
 
-    this.renderWidgetGrid();
+    this.renderGrid = this.renderWidgetGrid();
   }
 
 }

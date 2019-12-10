@@ -1,7 +1,8 @@
 <mat-toolbar class="au-nav-button" mat-ripple *ngIf="text || icon"
     (click)="navigate()"
     [ngClass]="{
-        hovered: hovered, 
+        hovered: hovered,
+        'always-elevation': alwaysElevation, 
         collapsed: collapsed, 
         success: type == 'success',
         system: type == 'system'

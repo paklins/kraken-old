@@ -18,6 +18,9 @@ export class AuNavButtonComponent implements OnInit {
   collapsed: boolean;
 
   @Input()
+  alwaysElevation: boolean = false;
+
+  @Input()
   type: string = "default";
 
   @Input()
